@@ -15,4 +15,8 @@ public class Regular extends Price {
 		return result;
 	}
 
+	public int getFrequentRenterPoints(int daysRented) {
+		return 1;
+	}
+
 }
