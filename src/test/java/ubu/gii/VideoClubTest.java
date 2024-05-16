@@ -1,7 +1,7 @@
 package ubu.gii;
 
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -83,4 +83,71 @@ public class VideoClubTest {
         assertTrue(salidaEsperada.equals(salida),"Calcula mal el alquiler");
 
 }
+	@Test
+    void testMovieInitialization() {
+        Movie movie = new Movie("The Matrix", Movie.REGULAR);
+        assertEquals("The Matrix", movie.getTitle());
+        assertEquals(Movie.REGULAR, movie.getPriceCode());
+    }
+
+    @Test
+    void testSetPriceCode() {
+        Movie movie = new Movie("The Matrix", Movie.REGULAR);
+        movie.setPriceCode(Movie.CHILDRENS);
+        assertEquals(Movie.CHILDRENS, movie.getPriceCode());
+        movie.setPriceCode(Movie.NEW_RELEASE);
+        assertEquals(Movie.NEW_RELEASE, movie.getPriceCode());
+    }
+
+    @Test
+    void testGetChargeRegular() {
+        Movie movie = new Movie("The Matrix", Movie.REGULAR);
+        assertEquals(2.0, movie.getCharge(2), 0.001);
+        assertEquals(3.5, movie.getCharge(3), 0.001);
+    }
+
+    @Test
+    void testGetChargeChildrens() {
+        Movie movie = new Movie("The Lion King", Movie.CHILDRENS);
+        assertEquals(1.5, movie.getCharge(3), 0.001);
+        assertEquals(1.5, movie.getCharge(2), 0.001);
+        assertEquals(1.5 + (4 - 3) * 1.5, movie.getCharge(4), 0.001);
+    }
+
+    @Test
+    void testGetChargeNewRelease() {
+        Movie movie = new Movie("The Matrix Resurrections", Movie.NEW_RELEASE);
+        assertEquals(3.0, movie.getCharge(1), 0.001);
+        assertEquals(6.0, movie.getCharge(2), 0.001);
+    }
+
+    @Test
+    void testGetFrequentRenterPointsRegular() {
+        Movie movie = new Movie("The Matrix", Movie.REGULAR);
+        assertEquals(1, movie.getFrequentRenterPoint(1));
+    }
+
+    @Test
+    void testGetFrequentRenterPointsChildrens() {
+        Movie movie = new Movie("The Lion King", Movie.CHILDRENS);
+        assertEquals(1, movie.getFrequentRenterPoint(1));
+    }
+
+    @Test
+    void testGetFrequentRenterPointsNewRelease() {
+        Movie movie = new Movie("The Matrix Resurrections", Movie.NEW_RELEASE);
+        assertEquals(1, movie.getFrequentRenterPoint(1));
+        assertEquals(2, movie.getFrequentRenterPoint(2));
+    }
+    
+    @Test
+    void testSetPriceCodeInvalid() {
+        Movie movie = new Movie("The Matrix", Movie.REGULAR);
+        IllegalArgumentException thrown = assertThrows(
+            IllegalArgumentException.class,
+            () -> movie.setPriceCode(999),
+            "Expected setPriceCode(999) to throw, but it didn't"
+        );
+        assertTrue(thrown.getMessage().contains("Incorrect PriceCode"));
+    }
 }
