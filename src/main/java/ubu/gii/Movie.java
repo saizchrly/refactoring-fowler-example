@@ -1,4 +1,5 @@
 package ubu.gii;
+
 /**
  * Tema Refactorizaciones
  * 
@@ -17,21 +18,39 @@ public class Movie {
 	public static final int NEW_RELEASE = 1;
 
 	private String _title;
-	private int _priceCode;
+	Price _priceCode;
 
 	public Movie(String title, int priceCode) {
 		_title = title;
-		_priceCode = priceCode;
+		setPriceCode(priceCode);
 	}
 
 	public int getPriceCode() {
-		return _priceCode;
+		return _priceCode.getPriceCode();
+	}
+
+	public double getCharge(int daysRented) {
+		return _priceCode.getCharge(daysRented);
 	}
 
 	public void setPriceCode(int arg) {
-		_priceCode = arg;
+		switch (arg) {
+		case REGULAR:
+			_priceCode = new Regular();
+			break;
+		case CHILDRENS:
+			_priceCode = new Children();
+			break;
+		case NEW_RELEASE:
+			_priceCode = new NewRelease();
+			break;
+		default:
+			throw new IllegalArgumentException("Incorrect PriceCode");
+		}
 	}
-
+	public int getFrequentRenterPoint(int daysRented) {
+		return _priceCode.getFrequentRenterPoints(daysRented);
+	}
 	public String getTitle() {
 		return _title;
 	}
