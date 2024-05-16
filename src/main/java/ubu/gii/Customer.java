@@ -43,7 +43,7 @@ public class Customer {
 
         while (rentals.hasNext()) {
             Rental each = rentals.next();
-            double thisAmount = each._movie.getCharge(each);
+            double thisAmount = each._movie._priceCode.getCharge(each.getMovie(), each.getDaysRented());
             frequentRenterPoints += each._movie.getFrequentRenterPoints(each);
             result.append(formatter.lineItem(each.getMovie().getTitle(), thisAmount));
             totalAmount += thisAmount;
