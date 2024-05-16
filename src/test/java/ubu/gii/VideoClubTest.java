@@ -72,7 +72,6 @@ public class VideoClubTest {
         c2.addRental(r3);
 
         String salida = c2.htmlStatement();
-        System.out.printf(salida);
 
         String salidaEsperada = "<H1>Rental Record for Manuel</H1>\n"
                 + "<H2>Sky Captain 15.0</H2>\n"

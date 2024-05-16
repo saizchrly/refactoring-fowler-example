@@ -1,5 +1,5 @@
 package ubu.gii;
 
-public class Price {
-
+public abstract class Price {
+	public abstract int getPriceCode();
 }
