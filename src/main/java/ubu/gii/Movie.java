@@ -48,17 +48,10 @@ public class Movie {
 			throw new IllegalArgumentException("Incorrect PriceCode");
 		}
 	}
-
+	public int getFrequentRenterPoint(int daysRented) {
+		return _priceCode.getFrequentRenterPoints(daysRented);
+	}
 	public String getTitle() {
 		return _title;
-	}
-
-	public int getFrequentRenterPoints(Rental rental) {
-		int points = 0;
-		points++;
-		// add bonus for a two dReay new release rental
-		if ((rental.getMovie().getPriceCode() == Movie.NEW_RELEASE) && rental.getDaysRented() > 1)
-			points++;
-		return points;
 	}
 }
